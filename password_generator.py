@@ -48,6 +48,7 @@ def generate_password():
 
     return password
 
+
 password_safe = []
 def keep_password(password):
     if len(password_safe) > 0:
@@ -55,20 +56,6 @@ def keep_password(password):
         password_safe.append(password)
     elif len(password_safe) == 0:
         password_safe.append((password))
-
-# password = generate_password()
-
-
-# GUI's
-# Tkinter
-# pyQT
-# Kivy
-# WxPython
-# pyside
-
-# tkinter ----------
-
-
 
 
 # display
@@ -127,3 +114,6 @@ def copy_password():
 
 
 base.mainloop()
+
+
+# Nicely done
