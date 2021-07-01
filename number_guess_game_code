@@ -1,0 +1,47 @@
+
+import tkinter as tk
+import random
+
+def start():
+    correct_number = random.randint(1, 20)
+    count = 10
+
+    up2 = correct_number + 2
+    down2 = correct_number - 2
+    up5 = correct_number + 5
+    down5 = correct_number - 5
+    up10 = correct_number + 10
+    down10 = correct_number - 10
+
+    GUESSED_CORRECT = False
+
+    while not GUESSED_CORRECT:
+        print("Please guess a number")
+        answer = int(input("The number I guess is: "))
+
+        if answer == correct_number:
+            GUESSED_CORRECT = True
+            winner(count)
+        elif answer != correct_number:
+            count -= 1
+            print("\nincorrect guess")
+            if count == 9:
+                print(f"The correct number is between {down10} and {up10}")
+            if count == 6:
+                print(f"The correct number is between {down5} and {up5}")
+            if count == 3:
+                print(f"The correct number is between {down2} and {up2}")
+            if count == 0:
+                GUESSED_CORRECT = True
+                lost(count)
+
+def winner(count):
+    print("\nYou won! Well done")
+    print(f"Your score is {count}")
+
+
+def lost(count):
+    print("\nYou lost!")
+    print(f"You have {count} points remaining")
+
+start()
