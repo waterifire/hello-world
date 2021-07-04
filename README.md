@@ -1,4 +1,4 @@
-# hello-world
-Different Projects
-
-Making A list of projects and each project will be in a different branch. I will merge them to main as i feel like it.
+Space shooter game 
+Watched tech-with-tim do it
+Going to improve and alter things afer i'm done watching it
+not done yet. Continue watching from 1:23:39
