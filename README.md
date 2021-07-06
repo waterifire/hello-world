@@ -1,4 +1,6 @@
-# hello-world
-Different Projects
+# Rock paper Scissors
 
-Making A list of projects and each project will be in a different branch. I will merge them to main as i feel like it.
+Rock paper scissors game
+  - raw
+  - tkinter
+  - pygame
