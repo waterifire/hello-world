@@ -1,4 +1,4 @@
-# hello-world
-Different Projects
+# Roll the dice. whoever gets to the finish line first wins!
 
-Making A list of projects and each project will be in a different branch. I will merge them to main as i feel like it.
+normally between a player and a bot but we will see how i do it.
+We only using 1 dice but easily can be more than 1
