@@ -1,4 +1,4 @@
-# hello-world
-Different Projects
+# Check projects out
 
-Making A list of projects and each project will be in a different branch. I will merge them to main as i feel like it.
+everything is written there.
+I will have multiple brances here but will actually merge them with this branch this time.
