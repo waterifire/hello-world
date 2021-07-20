@@ -7,6 +7,7 @@ TIMEOUT = 1
 
 
 def activate_now(ip, port):
+
     def checking_status(ip, port):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.settimeout(TIMEOUT)
@@ -21,7 +22,7 @@ def activate_now(ip, port):
 
     def check_host(ip, port):
         ip_up = False
-        for i in range(RETRY):  # it will try this so many times
+        for i in range(RETRY):
             if checking_status(ip, port):
                 ip_up = True
                 break
@@ -30,18 +31,19 @@ def activate_now(ip, port):
         return ip_up
 
     if check_host(ip, port):
-        with open('oranges.txt', 'a') as f:  # a will append, w will write
-            f.write(ip + "\t===\tport\tOK")
-            f.write("\n")
+        current_status = "OK"
+        return ip, port, current_status
 
     if not check_host(ip, port):
-        with open('oranges.txt', 'a') as f:  # a will append, w will write
-            f.write(ip + "\t===\tport\tDOWN")
-            f.write("\n")
+        current_status = "DOWN"
+        return ip, port, current_status
+
 
 def start_program():
     focus_list = []
+    temp_list = []
 
+    print("[STARTING]...")
     try:
         with open('apples.txt') as opened_file:
             read_file = opened_file.read()
@@ -53,62 +55,21 @@ def start_program():
     except FileNotFoundError:
         print("file not found!!!!")
 
-    print(focus_list)
-
-    # oceans = ["apples", "and", "oranges", "are", "fruit"]
-    # with open('oranges.txt', 'w') as f:  # a will append, w will write
-    #     for ocean in oceans:
-    #         f.write(ocean)
-    #         f.write("\n")
-
     for i in focus_list:
-        print(f"#----------- {i}")
         host = i[0]
         port = i[1]
-        activate_now(host, port)
+        var1, var2, var3 = activate_now(host, port)
+        temp_list.append((var1, var2, var3))
+
+    with open('oranges.txt', 'w') as f:  # clears the file
+        f.write("")
+
+    for a in temp_list:
+        with open('oranges.txt', 'a') as f:
+            f.write(f"{a[0]}\t===\tport\t{a[2]}")
+            f.write("\n")
+
+    print("[COMPLETED]...")
 
 
 start_program()
-
-"""
-#!/usr/bin/python
-import socket
-import time
-ip = "google.com"
-port = 443
-retry = 5
-delay = 10
-timeout = 3
-def isOpen(ip, port):
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.settimeout(timeout)
-        try:
-                s.connect((ip, int(port)))
-                s.shutdown(socket.SHUT_RDWR)
-                return True
-        except:
-                return False
-        finally:
-                s.close()
-def checkHost(ip, port):
-        ipup = False
-        for i in range(retry):
-                if isOpen(ip, port):
-                        ipup = True
-                        break
-                else:
-                        time.sleep(delay)
-        return ipup
-if checkHost(ip, port):
-        print ip + " is UP"
-
-
------------------
-read a file in
-10.0.0.1:22
-10.0.0.1:25
-10.0.0.1:80
-10.0.0.2:80
-does the code
-outputs 2 files. open and closed ports
-"""
