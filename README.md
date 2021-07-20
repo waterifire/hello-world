@@ -1,4 +1,3 @@
-# hello-world
-Different Projects
+# Up or Down
 
-Making A list of projects and each project will be in a different branch. I will merge them to main as i feel like it.
+Checking whether the place is up or down
