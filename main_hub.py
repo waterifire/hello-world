@@ -1,11 +1,9 @@
 import socket
 import time
-IP_NAME = []
-IP_DNS = []
 PORT = 443
-RETRY = 5
-DELAY = 10
-TIMEOUT = 3
+RETRY = 1
+DELAY = 1
+TIMEOUT = 1
 
 
 def activate_now(ip, port):
@@ -32,9 +30,14 @@ def activate_now(ip, port):
         return ip_up
 
     if check_host(ip, port):
-        print(ip + " === status: UP")
+        with open('oranges.txt', 'a') as f:  # a will append, w will write
+            f.write(ip + "\t===\tport\tOK")
+            f.write("\n")
+
     if not check_host(ip, port):
-        print(ip + " === status: Down")
+        with open('oranges.txt', 'a') as f:  # a will append, w will write
+            f.write(ip + "\t===\tport\tDOWN")
+            f.write("\n")
 
 def start_program():
     focus_list = []
