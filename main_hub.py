@@ -1,4 +1,5 @@
 from openpyxl import Workbook, load_workbook
+import sys
 
 wb = load_workbook('docs/mission.xlsx')
 ws = wb.active
@@ -12,7 +13,8 @@ print(ws)  # prints what worksheet you are on
 # print(ws['C2'].value)  # prints everything in the cell
 
 working_down = True
-
+destination_ls = ['M', 'N']
+destination_ls1 = ['M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 num = '2'
 
 # print(ws[current_cell].value)
@@ -29,28 +31,33 @@ def cell_move():
     ls.append(current_cell)
     print(ls)
 
-def amount_equal(num):
-    num_ls = ['N', 'M', 'O', 'P', 'Q']
+def amount_equal():
+    global num
     count = 2
 
-    def checking_amount(count):
-        numb = str(int(num) + 1)
-        looking_at = 'C' + numb
-        if ws[[ls[1]]] == ws[looking_at]:
-            print(f"before append=== {ls}")
-            ls.append(looking_at)
-            print(f"after append == {ls}")
+    def checking_amount(count):  # example 924, 925, 926
+        numb = int(num) + 1
+        looking_at = 'C' + str(numb)
+        if ws[ls[1]].value == ws[looking_at].value:
+            check_more = True
             count += 1
+            ls.append(looking_at)  # ls = (C924, C925, C926)
+            while check_more:
+                numb = str(int(numb) + 1)
+                looking_at = 'C' + numb
+                if ws[ls[-1]].value == ws[looking_at].value:
+                    count += 1
+                if ws[ls[-1]].value != ws[looking_at].value:
+                    check_more = False
+                    return count
+
+        else:
+            count = 2
             return count
-        elif ws[[ls[1]]] != ws[looking_at]:
-            how_many = False
-            return count
-
-
-
+    count = checking_amount(count)
     if count == 2:
-        place = 'N' + num
-        place2 = 'M' + num
+        place = 'M' + num
+        place2 = 'M' + str(int(num) - 1)
 
         val = ls[0]
         val = val[1:]
@@ -63,35 +70,42 @@ def amount_equal(num):
         ws[place] = ws[val].value
         ws[place2] = ws[mal].value
     elif count > 2:
-        how_many = True
-        while how_many:
-            count = checking_amount(count)
-
-        print(ls)
+        extract_ls = []
         num = int(num)
-        for i in range(0, count):
-            a = i + num
-            a = str(a)
+        temp_count = 0
+        extract_cell = 'B'
 
-            val = ls[i]
-            val = val[1:]
-            val = "B" + val
-            print(val)
-            for x in num_ls:
-                specific_cell = x + a
-                ws[specific_cell] = val
+        for i in range(len(ls)):  # This extracts the values i need to print
+            focus = ls[i]
+            number_focus = focus[1:]
+            extraction_value = extract_cell + number_focus
+            extract_ls.append(extraction_value)
 
-# NPQORST
-# ls = (C300, C301, C302, C303)  ->
-# ls = (C132, C133, C134)
-# ls = (C232, C233)
+        for count1 in range(count):  # count = 3, ls =(c10, c11, c12)
+            focus_row = count1 + num - 1
+            temp_extra_ls = []
+            temp_extra_ls.extend(extract_ls)
+            item_removed = temp_extra_ls[count1]
+            temp_extra_ls.remove(item_removed)
+            print(f"temp===== {temp_extra_ls}")
+            for i in range(len(temp_extra_ls)):
+                count = 0
+                for x in destination_ls:
+                    drop_it = x + str(focus_row)
+                    ws[drop_it] = ws[temp_extra_ls[count]].value
+                    temp_count += 1
+                    count += 1
+        ls.pop(-1)
+        num += count1 - 1
+
+# NPQOR33)
 ls = ['c1', 'c2']
 
 while working_down:
 
     if ws[ls[0]].value == ws[ls[1]].value:
         print("equal!   --------------------")
-        amount_equal(num)
+        amount_equal()
         cell_move()
     else:
 
